@@ -1,0 +1,77 @@
+<!--
+ * @Author: renhongyun
+ * @Date: 2024-02-03 17:20:22
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active {
+            color: red;
+        }
+
+        li {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.querySelector("#root"))
+        class App extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    movies: ["言叶之庭", "你的名字", "天气之子"],
+                    currentIndex: 0,
+                }
+            }
+            changeColor(index) {
+                this.setState({
+                    currentIndex: index
+                })
+            }
+            render() {
+                const { movies, currentIndex } = this.state
+                function itemHandle(item, index) {
+                    return (
+                        <li className={currentIndex === index ? 'active' : ''}
+                            key={item}
+                            onClick={() => { this.changeColor(index) }}>
+                            {item}
+                        </li>
+                    )
+
+                }
+                const itemHandle2 = (item, index) => {
+                    return (
+                        <li className={currentIndex === index ? 'active' : ''}
+                            key={item}
+                            onClick={() => { this.changeColor(index) }}>
+                            {item}
+                        </li>
+                    )
+                }
+                return (
+                    <div>
+                        <ul>{movies.map(itemHandle, this)}</ul>
+                        <ul>{movies.map(itemHandle2)}</ul>
+                    </div>
+                )
+            }
+        }
+        root.render(<App />)
+    </script>
+    </script>
+</body>
+
+</html>

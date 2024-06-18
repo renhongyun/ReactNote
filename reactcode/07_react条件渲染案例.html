@@ -1,0 +1,56 @@
+<!--
+ * @Author: renhongyun
+ * @Date: 2024-02-04 17:06:06
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.querySelector("#root"))
+        class App extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    title:"我还在吗",
+                    isShow: true
+                }
+            }
+            render() {
+                const {title, isShow} = this.state
+                return (
+                    <div>
+                        {/*v-if的效果*/}
+                        <button onClick={() => {this.change()}}>点我</button>
+                        <h2>{isShow ? title : ''}</h2>
+                        {isShow && <h2>{title}</h2>}
+
+                        {/*v-show的效果*/}
+                        <h2 style={{display: isShow? 'block': 'none'}}>{title}</h2>
+                    </div>
+                )
+            }
+            // v-if删除元素，v-showdisplay改为none
+            change() {
+                this.setState({
+                    isShow: !this.state.isShow
+                })
+            }
+
+        }
+        root.render(<App />)
+    </script>
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!--
+ * @Author: renhongyun
+ * @Date: 2024-02-04 17:53:37
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .item{
+            border:1px solid orange;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.querySelector("#root"))
+        class App extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    students:[
+                        {id: 111,name: "小红",score:5},
+                        {id: 112,name: "小华",score:21},
+                        {id: 113,name: "小明",score:38}
+
+                    ]
+                }
+            }
+            render() {
+                const {students} = this.state
+                // 分数大于100
+                const filterStudents = students.filter(item => {
+                    return item.score > 20
+                })
+                // 只展示前两个[start, end)
+                const sliceStudents = filterStudents.slice(0,2)
+
+                //或者在下面直接链式调用
+                students.filter(item => item.score > 100).slice(0, 2).map
+
+                return (
+                    <div>
+                        <h2>学生信息列表</h2>
+                        <div class="list">
+                            {
+                                sliceStudents.map(item => {
+                                    return (
+                                        <div class="item" key={item.id}>
+                                            <h2>学号：{item.name}</h2>
+                                            <h2>姓名：{item.id}</h2>
+                                            <h2>分数：{item.score}</h2>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+
+                    </div>
+                )
+            }
+
+        }
+        root.render(<App />)
+    </script>
+    </script>
+</body>
+
+</html>

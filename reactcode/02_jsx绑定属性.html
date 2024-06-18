@@ -1,0 +1,75 @@
+<!--
+ * @Author: renhongyun
+ * @Date: 2024-02-01 21:14:09
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.querySelector("#root"))
+        class App extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    message: "oi react",
+                    title: "react",
+                    imgURL:"https://cn.bing.com/images/search?view=detailV···",
+                    href:"http://www.baidu.com",
+                    isActive: "true",
+                    objStyle: {
+                        color:"red"
+                    }
+                }
+            }
+            render() {
+                const { message, title, imgURL, href, isActive, objStyle } = this.state
+                // class绑定写法1：模板字符串
+                const className = `abc cba ${isActive ? 'active' : ''}`
+                //class绑定写法2:数组
+                const classList = ['abc', 'cba']
+                if(isActive) classList.push("active")
+                //写法3:第三方库
+                // classnames
+                return (
+                    <div>
+                        {/*1.基本绑定*/}
+                        <h2 title={title}>我是标题</h2>
+                        <img src={imgURL} alt=""/>
+                        <a href={href}>百度</a>
+
+                        {/*2.绑定class属性*/}
+                        {/*将js中的关键字Class类作为属性名，有可能造成误解,所以最好写成className*/}
+                        {/*Warning: Invalid DOM property `class`. Did you mean `className`?*/}
+                        <h2 class="abc cba">哈哈</h2>
+                        <h2 className="abc cba">哈哈哈</h2>
+                        <h2 className={`abc cba ${isActive ? 'active' : ''}`}>哈哈哈哈哈</h2>
+                        <h2 className={className}>哈哈哈哈哈哈</h2>
+                        <h2 className={classList.join(" ")}>哈哈哈哈哈哈哈</h2>
+
+                        {/*3.绑定style:绑定对象类型 !这不是差值语法哈*/}
+                        {/*变量作为子元素时不能是对象，但是绑定属性时可以*/}
+                        <h2 style={{color:"red"}}>我是什么颜色？</h2>
+                        <h2 style={objStyle}>我也是红色吗？</h2>
+
+                    </div>
+                )
+            }
+
+        }
+        root.render(<App/>)
+    </script>
+    </script>
+</body>
+
+</html>

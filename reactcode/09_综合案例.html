@@ -1,0 +1,125 @@
+<!--
+ * @Author: renhongyun
+ * @Date: 2024-02-04 22:59:48
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.querySelector("#root"))
+        class App extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    books: [
+                        { id: 1, title: '《算法导论》', date: '2006-9', price: 85, quantity: 1 },
+                        { id: 2, title: '《UNIX编程艺术》', date: '2006-2', price: 59, quantity: 1 },
+                        { id: 3, title: '《编程珠玑》', date: '2008-10', price: 39, quantity: 1 },
+                        { id: 4, title: '《代码大全》', date: '2006-3', price: 128, quantity: 1 }
+                    ],
+
+                }
+            }
+            // increment(item, index) {
+            //     this.setState({
+            //         books: this.state.books[index].quantity + 1
+            //     })
+            // }
+            // decrement(item, index) {
+            //     this.setState({
+            //         books: this.state.books[index].quantity - 1
+            //     })
+            // }
+            // remove(item, index) {
+            //     this.setState({
+            //         books: this.state.books.splice(index, 1)
+            //     })
+            // }
+            increment(item, index) {
+                const newBooks = this.state.books.map((b, i) => {
+                    if (i === index) {
+                        return { ...b, quantity: b.quantity + 1 };
+                    }
+                    return b;
+                });
+                this.setState({ books: newBooks });
+            }
+
+            decrement(item, index) {
+                const newBooks = this.state.books.map((b, i) => {
+                    if (i === index && b.quantity > 0) {
+                        return { ...b, quantity: b.quantity - 1 };
+                    }
+                    return b;
+                });
+                this.setState({ books: newBooks });
+            }
+
+            remove(item, index) {
+                const newBooks = this.state.books.filter((_, i) => i !== index);
+                this.setState({ books: newBooks });
+            }
+            render() {
+                const { books } = this.state
+                const content = books.map((item, index) => {
+                    return (
+                        <tr>
+                            <td>{item.id}</td>
+                            <td>{item.title}</td>
+                            <td>{item.date}</td>
+                            <td>{item.price}</td>
+                            <td>
+                                <button onClick={() => { this.increment(item, index) }}>+</button>
+                                <span>{item.quantity}</span>
+                                <button onClick={() => { this.decrement(item, index) }}>-</button>
+                            </td>
+                            <td>
+                                <button onClick={() => { this.remove(item, index) }}>移除</button>
+                            </td>
+                        </tr>
+                    )
+                })
+                const total = books.reduce((accumulator, item) => {
+                    return accumulator + item.price * item.quantity;
+                }, 0); // 初始值为0
+
+                return (
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>书籍名称</th>
+                                    <th>出版日期</th>
+                                    <th>价格</th>
+                                    <th>购买数量</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {content}
+                            </tbody>
+                        </table >
+                        <h2>总额{total}</h2>
+                    </div >
+                )
+            }
+
+        }
+        root.render(<App />)
+    </script>
+    </script>
+</body>
+
+</html>

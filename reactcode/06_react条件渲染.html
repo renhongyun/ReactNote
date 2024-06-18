@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.querySelector("#root"))
+        class App extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    isReady: true,
+                    friend: {
+                        name: "汪文宣",
+                        desc: "寒夜"
+                    }
+                }
+            }
+            render() {
+                const { isReady, friend } = this.state
+                let content = null
+                    if(isReady){
+                        content = <h2>我准备好了</h2>
+                    }else{
+                        content = <h2>再等一小下</h2>
+                    }
+                
+                return (
+                    <div>
+                        {content}
+                        {isReady?<li>我准备好了</li>:<li>再等一小下</li>}
+                        {/*&&逻辑与运算*/}
+                        {friend && <div>{friend.name + " " + friend.desc}</div>}
+                    </div>
+                )
+            }
+
+        }
+        root.render(<App />)
+    </script>
+    </script>
+</body>
+
+</html>

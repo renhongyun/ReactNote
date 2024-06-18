@@ -1,0 +1,100 @@
+<!--
+ * @Author: renhongyun
+ * @Date: 2024-01-30 22:33:53
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.querySelector("#root"))
+        class App extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    message: "hello",
+                    names: ["菩提树树", "铁锅炖素鹅", "鸣蜩哿号"],
+                    counter: 10,
+                    money: null,
+                    mate: undefined,
+                    poor: true,
+                    friend: {
+                        1: "伯牙善古琴",
+                        2: "上海世博会",
+                        3: "天淇老冰棍",
+                        4: "就这个假期爽"
+                    },
+                    firstName: "r",
+                    lastName: "hy",
+
+                    age: 20,
+
+                    movies: ["流浪地球", "独行月球"]
+                }
+            }
+            render() {
+                const { message, names, counter } = this.state
+                const { money, mate, poor } = this.state
+                const { friend } = this.state
+                const { firstName, lastName } = this.state
+                {/*达到和计算属性相同的结果*/ }
+                const fullName = firstName + " " + lastName
+
+                const { age } = this.state
+                const ageTest = age>18?"成年人":"未成年人"
+
+                const liEls  = this.state.movies.map(movie => <li>{movie}</li>)
+                return (
+                    <div>
+                        {/*1、Number、String、Array直接显示*/}
+                        <h2>{message}</h2>
+                        <h3>{names}</h3>
+                        <h2>{counter}</h2>
+                        {/*2、null、undefined、Boolean不直接显示*/}
+                        {/*因为值是undefined的数据可能是需要服务器返回的，React做了一个忽略*/}
+                        <h2>{money}</h2>
+                        <h3>{mate}</h3>
+                        <h2>{poor}</h2>
+                        {/*想要显示要做转haunt，一般用不着*/}
+                        {String(money)}
+                        {mate + ""}
+                        {poor.toString()}
+                        {/*3、Objects*/}
+                        {/*Objects are not valid as a React child*/}
+                        <h2>{Object.keys(friend)[0]}</h2>
+                        {/*4、表达式*/}
+                        <h2>{2 + 3}</h2>
+                        <h2>{firstName + " " + lastName}</h2>
+                        <h2>{fullName}</h2>
+                        {/*5、三元运算符*/}
+                        <h2>{ageTest}</h2>
+                        {/*6、方法*/}
+                        <ul>{liEls}</ul>
+                        <ul>{this.state.movies.map(movie => <li>{movie}</li>)}</ul>
+                        <ul>{this.getMoviesEls()}</ul>
+                    </div>
+                )
+            }
+            //逻辑如果复杂抽取方法里面
+            getMoviesEls() {
+                const liEls  = this.state.movies.map(movie => <li>{movie}</li>)
+                return liEls
+            }
+
+        }
+        root.render(<App />)
+    </script>
+    </script>
+</body>
+
+</html>
